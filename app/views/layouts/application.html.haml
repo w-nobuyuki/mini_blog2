@@ -2,10 +2,16 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title MiniBlog1
+    %title ミニブログ1
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    = yield
+  %body.pt-3
+    .container
+      .row
+        .col
+          - flash.each do |key, value|
+            - type = key == 'notice' ? 'info' : 'danger'
+            = tag.div value, class: "alert alert-#{type}"
+          = yield
