@@ -1,0 +1,8 @@
+= link_to '新規投稿画面', new_tweet_path, class: 'btn btn-outline-success mb-2'
+- @tweets.each do |tweet|
+  .card.mb-3
+    .card-body= raw h(tweet.body).gsub(/\R/, '<br>')
+    .card-footer
+      .row.align-items-center
+        .col= tweet.created_at.strftime('%Y/%m/%d %H:%M')
+        .col.text-right= link_to '削除', tweet, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { confirm: '削除してもいいですか？' }

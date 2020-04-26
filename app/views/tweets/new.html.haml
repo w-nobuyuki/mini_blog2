@@ -1,0 +1,6 @@
+%h1 新規投稿
+= simple_form_for @tweet do |form|
+  = form.error_notification
+  = form.input :body, as: :text, label: false
+  = form.button :submit, '投稿する', class: 'btn-outline-primary'
+  = link_to '戻る', root_path, class: 'btn btn-outline-secondary'
