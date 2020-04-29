@@ -1,6 +1,10 @@
-%h2 Log in
-= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  = f.input :name, required: false, autofocus: true
-  = f.input :password, required: false
-  = f.button :submit, "Log in", class: 'btn-outline-primary'
-= render "devise/shared/links"
+%h2.text-center ミニブログ
+.card
+  .card-body
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.input :name, required: false, autofocus: true
+      = f.input :password, required: false
+      = f.button :submit, 'ログイン', class: 'btn-outline-primary'
+    %hr/
+    = link_to 'アカウントを登録する', new_registration_path(resource_name), class: 'btn btn-outline-success'
+    -# = render "devise/shared/links"
