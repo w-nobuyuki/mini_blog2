@@ -5,7 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          authentication_keys: [:name]
 
-  validates :name, presence: true, uniqueness: true, length: { maximum: 20 }, format: { with: /\A[a-zA-Z]+\z/ }
+  validates :name, presence: true,
+                   uniqueness: true,
+                   length: { maximum: 20 },
+                   format: { with: /\A[a-zA-Z]+\z/, allow_blank: true }
 
   def email_required?
     false
