@@ -11,6 +11,7 @@ class User < ApplicationRecord
                    uniqueness: true,
                    length: { maximum: 20 },
                    format: { with: /\A[a-zA-Z]+\z/, allow_blank: true }
+  validates :profile, length: { maximum: 200 }
 
   def email_required?
     false
