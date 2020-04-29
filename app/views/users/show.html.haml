@@ -1,0 +1,23 @@
+.card.mb-3
+  .card-header
+    ユーザー情報
+  .card-body
+    .row
+      .col-md-2
+        ユーザー名
+      .col-md-10
+        = @user.name
+    %hr/
+    .row
+      .col-md-2
+        プロフィール
+      .col-md-10
+        = @user.profile
+    %hr/
+    .row
+      .col-md-2
+        ブログURL
+      .col-md-10
+        = @user.blog_url
+
+= link_to 'トップページへ戻る', root_path, class: 'btn btn-outline-secondary'
