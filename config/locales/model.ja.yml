@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      tweet: つぶやき
+    attributes:
+      user:
+        name: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード確認
+        profile: プロフィール
+        blog_url: ブログURL
+      tweet:
+        body: 本文
