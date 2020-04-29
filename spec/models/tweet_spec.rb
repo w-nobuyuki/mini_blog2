@@ -12,7 +12,7 @@ RSpec.describe Tweet, type: :model do
     expect(tweet).to be_valid
   end
 
-  it 'は本文の文字数が141字であれば無効であること' do
+  it 'は本文の文字数が141字以上の場合無効であること' do
     tweet = Tweet.new(body: Faker::Lorem.characters(number: 141))
     tweet.valid?
     expect(tweet.errors[:body]).to include('is too long (maximum is 140 characters)')
