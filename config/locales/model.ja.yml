@@ -8,6 +8,7 @@ ja:
         name: ユーザー名
         password: パスワード
         password_confirmation: パスワード確認
+        current_password: 現在のパスワード
         profile: プロフィール
         blog_url: ブログURL
       tweet:

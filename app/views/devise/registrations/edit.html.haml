@@ -1,0 +1,9 @@
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = f.error_notification
+  = f.input :name, required: true, autofocus: true
+  = f.input :password, hint: '変更しない場合は空白にしてください', required: false
+  = f.input :password_confirmation, required: false
+  = f.input :profile, as: :text, required: false
+  = f.input :blog_url, as: :string, required: false
+  = f.input :current_password, hint: '変更を確定するには現在のパスワードが必要です', required: true
+  = f.button :submit, '更新する', class: 'btn-outline-primary'
