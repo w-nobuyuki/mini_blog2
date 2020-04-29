@@ -12,7 +12,7 @@
       .col-md-2
         プロフィール
       .col-md-10
-        = @user.profile
+        = raw h(@user.profile).gsub(/\R/, '<br>')
     %hr/
     .row
       .col-md-2
