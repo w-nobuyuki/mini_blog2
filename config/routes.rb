@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # HACK: registrationsコントローラのcancelとdestroyは利用していない
+  devise_for :users, only: [:sessions, :registrations]
   resources :tweets, except: %i[edit show update index]
   resources :users, only: :show
   root 'tweets#index'
