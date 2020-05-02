@@ -7,6 +7,6 @@
       = f.input :name, required: true, autofocus: true, hint: 'アルファベットのみ、スペース禁止、20文字以内'
       = f.input :password, required: true, hint: ("#{@minimum_password_length} 文字以上" if @minimum_password_length)
       = f.input :password_confirmation, required: true
-      = f.button :submit, 'Sign up', class: 'btn-outline-primary'
+      = f.button :submit, '登録する', class: 'btn-outline-primary'
     %hr/
     = link_to 'ログイン画面へ戻る', new_session_path(resource_name), class: 'btn btn-outline-success'
