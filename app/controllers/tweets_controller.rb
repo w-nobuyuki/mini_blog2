@@ -4,6 +4,7 @@ class TweetsController < ApplicationController
 
   def index
     @tweets = Tweet.all.order(created_at: 'DESC').includes(:user)
+    @follow_users_tweets = current_user.follow_users_tweets.order(created_at: 'DESC').includes(:user)
   end
 
   def new

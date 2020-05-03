@@ -1,0 +1,17 @@
+- tweets.each do |tweet|
+  .card.mb-3
+    .card-body
+      %h5.card-title
+        = link_to tweet.user.name, tweet.user
+      %p.card-text= raw h(tweet.body).gsub(/\R/, '<br>')
+    .card-footer
+      .row.align-items-center
+        .col= tweet.created_at.strftime('%Y/%m/%d %H:%M')
+        .col.text-right
+          - if tweet.user == current_user
+            = link_to '削除', tweet, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { confirm: '削除してもいいですか？' }
+          - else
+            - if current_user.following?(tweet.user)
+              = link_to 'フォロー解除', unfollow_user_path(tweet.user), method: :delete, class: 'btn btn-sm btn-outline-danger'
+            - else
+              = link_to 'フォロー', follow_user_path(tweet.user), method: :post, class: 'btn btn-sm btn-outline-primary'
