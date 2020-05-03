@@ -15,3 +15,8 @@
                       method: :delete,
                       class: 'btn btn-sm btn-outline-danger',
                       data: { confirm: '削除してもいいですか？' }
+          - else
+            - if current_user.following?(tweet.user)
+              = link_to 'フォロー解除', unfollow_user_path(tweet.user), method: :delete, class: 'btn btn-sm btn-outline-danger'
+            - else
+              = link_to 'フォロー', follow_user_path(tweet.user), method: :post, class: 'btn btn-sm btn-outline-primary'

@@ -5,12 +5,19 @@ class User < ApplicationRecord
          :rememberable, :validatable, authentication_keys: [:name]
 
   has_many :tweets
+  has_many :follows, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :follow_users, through: :follows, source: :user
+  has_many :follow_user_tweets, through: :follow_users, source: :tweets
 
   validates :name, presence: true,
                    uniqueness: true,
                    length: { maximum: 20 },
                    format: { with: /\A[a-zA-Z]+\z/, allow_blank: true }
   validates :profile, length: { maximum: 200 }
+
+  def following?(user)
+    follow_users.pluck(:follow_user_id).include?(user.id)
+  end
 
   def email_required?
     false
