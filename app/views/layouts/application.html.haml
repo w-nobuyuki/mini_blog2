@@ -24,5 +24,8 @@
         .col
           - flash.each do |key, value|
             - type = key == 'notice' ? 'info' : 'danger'
-            = tag.div value, class: "alert alert-#{type}"
+            %div{class: "alert alert-#{type}"}
+              = value
+              %button.close{type: 'button', data: {dismiss: 'alert'}, aria: {label: 'Close'}}
+                %span{aria: {hidden: 'true'}} &times;
           = yield
