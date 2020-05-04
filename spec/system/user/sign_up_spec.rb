@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'User#sign_up', type: :system do
   before do
     visit new_user_registration_path

@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'User#sign_in', type: :system do
   before do
     User.create(name: 'user', password: 'password')

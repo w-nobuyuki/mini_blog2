@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'User#edit', type: :system do
   before do
     User.create(
