@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Tweets#index', type: :system do
+RSpec.describe 'Tweets#index', type: :system, js: true do
   before do
     first_user = User.create(name: 'first', password: 'password')
     second_user = User.create(name: 'second', password: 'password')
@@ -35,7 +35,7 @@ RSpec.describe 'Tweets#index', type: :system do
 
   it 'は自身の投稿に削除リンクが含まれること' do
     tweets = all('.card-footer').map { |tweet| tweet.all('.col').last.text }
-    expect(tweets).to eq ['', '削除', '削除']
+    expect(tweets[1..2]).to eq %w[削除 削除]
   end
 
   it 'は自身の投稿を削除できること' do
@@ -45,5 +45,38 @@ RSpec.describe 'Tweets#index', type: :system do
       end
     end
     expect(page).to have_content 'つぶやきを削除しました。'
+  end
+
+  it 'はフォローしていないユーザーの投稿にはフォローボタンが表示されること' do
+    tweets = all('.card-footer').map { |tweet| tweet.all('.col').last.text }
+    expect(tweets[0]).to eq 'フォロー'
+  end
+
+  it 'はフォローボタンをクリックするとそのユーザーの投稿にフォロー解除ボタンがつくこと' do
+    click_link 'フォロー'
+    tweets = all('.card-footer').map { |tweet| tweet.all('.col').last.text }
+    expect(tweets[0]).to eq 'フォロー解除'
+  end
+
+  it 'はフォローボタンをクリックするとそのユーザーの投稿がフォローユーザーのタイムラインで表示されること' do
+    click_link 'フォロー'
+    click_link 'フォローユーザーのタイムライン'
+    expect(page).to have_css '#timeline-follow-users.show'
+    tweets = all('.card-title').map(&:text)
+    expect(tweets).to eq %w[second]
+  end
+
+  it 'はフォロー解除ボタンをクリックするとそのユーザーの投稿にフォローボタンがつくこと' do
+    click_link 'フォロー'
+    click_link 'フォロー解除'
+    tweets = all('.card-footer').map { |tweet| tweet.all('.col').last.text }
+    expect(tweets[0]).to eq 'フォロー'
+  end
+
+  it 'はフォローしていないユーザーの投稿がフォローユーザーのタイムラインで表示されないこと' do
+    click_link 'フォローユーザーのタイムライン'
+    expect(page).to have_css '#timeline-follow-users.show'
+    tweets = all('.card-title').map(&:text)
+    expect(tweets).to_not include 'second'
   end
 end

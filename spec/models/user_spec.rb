@@ -53,4 +53,13 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.errors[:password]).to include('は6文字以上で入力してください')
   end
+
+  it 'は対象のユーザーをフォローしているかどうかの真偽値を返すこと' do
+    user1 = User.create(name: 'one', password: 'password')
+    user2 = User.create(name: 'two', password: 'password')
+    user3 = User.create(name: 'three', password: 'password')
+    user1.follows.create(follow_user_id: user2.id)
+    expect(user1.following?(user2)).to eq true
+    expect(user1.following?(user3)).to eq false
+  end
 end
