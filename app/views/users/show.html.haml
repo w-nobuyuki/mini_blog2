@@ -1,6 +1,13 @@
-.card.mb-3
+.card.mb-3.mt-3
   .card-header
-    ユーザー情報
+    .row
+      .col-auto.mr-auto ユーザー情報
+      .col-auto
+        - if current_user != @user
+          - if current_user.following?(@user)
+            = link_to 'フォロー解除', unfollow_user_path(@user), method: :delete, class: 'btn btn-sm btn-outline-danger'
+          - else
+            = link_to 'フォローする', follow_user_path(@user), method: :post, class: 'btn btn-sm btn-outline-primary'
   .card-body
     .row
       .col-md-2
@@ -19,5 +26,4 @@
         ブログURL
       .col-md-10
         = @user.blog_url
-
 = link_to 'トップページへ戻る', root_path, class: 'btn btn-outline-secondary'
