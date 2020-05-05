@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :follows, class_name: 'Follow', foreign_key: 'follower_id'
   has_many :follow_users, through: :follows, source: :follow_user
   has_many :follow_users_tweets, through: :follow_users, source: :tweets
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true,
                    uniqueness: true,
