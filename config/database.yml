@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: mini_blog1
+  username: mini_blog2
   password: <%= Rails.application.credentials.db[:password] %>
   host: localhost
   # For details on connection pooling, see Rails configuration guide
@@ -10,12 +10,12 @@ default: &default
 
 development:
   <<: *default
-  database: mini_blog1_development
+  database: mini_blog2_development
 
 test:
   <<: *default
-  database: mini_blog1_test
+  database: mini_blog2_test
 
 production:
   <<: *default
-  database: mini_blog1_production
+  database: mini_blog2_production
