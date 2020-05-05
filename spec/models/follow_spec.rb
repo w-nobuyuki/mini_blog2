@@ -9,4 +9,11 @@ RSpec.describe Follow, type: :model do
     duplicate_follow.valid?
     expect(duplicate_follow.errors[:follow_user_id]).to include 'はすでに存在します'
   end
+
+  it 'はフォローユーザーに自分を指定できないこと' do
+    user = User.create(name: 'user', password: 'password')
+    follow = user.follows.build(follow_user_id: user.id)
+    follow.valid?
+    expect(follow.errors[:follow_user_id]).to include 'は自分以外のユーザーを指定してください'
+  end
 end
