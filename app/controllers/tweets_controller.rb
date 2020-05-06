@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_tweet, only: [:destroy]
+  before_action :set_tweet, only: %i[like unlike]
 
   def index
     @tweets = Tweet.all.order(created_at: 'DESC').includes(:user)
@@ -22,13 +22,23 @@ class TweetsController < ApplicationController
   end
 
   def destroy
-    @tweet.destroy
+    tweet = current_user.tweets.find(params[:id])
+    tweet.destroy
     redirect_to root_url, notice: 'つぶやきを削除しました。'
+  end
+
+  def like
+    @tweet.likes.create(user_id: current_user.id)
+  end
+
+  def unlike
+    @tweet.likes.find_by(user_id: current_user.id).try(:destroy)
+    render :like
   end
 
   private
     def set_tweet
-      @tweet = current_user.tweets.find(params[:id])
+      @tweet = Tweet.find(params[:id])
     end
 
     def tweet_params

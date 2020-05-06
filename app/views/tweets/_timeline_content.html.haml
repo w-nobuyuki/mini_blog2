@@ -1,5 +1,5 @@
 - tweets.each do |tweet|
-  .card.mb-3
+  .card.mb-3{id: "tweet-#{tweet.id}-card"}
     .card-body
       %h5.card-title
         .row
@@ -11,6 +11,10 @@
       %p.card-text
         %small.text-muted
           = tweet.created_at.strftime('%Y/%m/%d %H:%M')
-    .card-footer
-      .row.align-items-center
-        .col.text-right
+    .card-footer.border-second.bg-transparent
+      .row
+        .col
+      %hr/
+      .row
+        .col{id: "tweet-#{tweet.id}-like"}
+          = render partial: 'like_button', locals: { tweet: tweet }

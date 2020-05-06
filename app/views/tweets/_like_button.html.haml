@@ -1,0 +1,8 @@
+- if current_user.like_tweet?(tweet.id)
+  = link_to unlike_tweet_path(tweet), method: :delete, class: 'btn btn-primary btn-sm', remote: true do
+    %i.far.fa-thumbs-up
+    いいね！
+- else
+  = link_to like_tweet_path(tweet), method: :post, class: 'btn btn-outline-primary btn-sm', remote: true do
+    %i.far.fa-thumbs-up
+    いいね！

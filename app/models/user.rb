@@ -21,6 +21,10 @@ class User < ApplicationRecord
     follow_users.pluck(:follow_user_id).include?(user.id)
   end
 
+  def like_tweet?(tweet_id)
+    likes.pluck(:tweet_id).include?(tweet_id)
+  end
+
   def email_required?
     false
   end
