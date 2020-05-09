@@ -4,6 +4,10 @@ RSpec.describe "Users#show", type: :system do
   before do
     @user = User.create(
       name: 'user',
+      password: 'password'
+    )
+    @user2 = User.create(
+      name: 'userSecond',
       password: 'password',
       profile: 'プロフィール\nこれはプロフィールです。',
       blog_url: 'https://google.co.jp'
@@ -12,11 +16,11 @@ RSpec.describe "Users#show", type: :system do
     fill_in 'user[name]',	with: 'user'
     fill_in 'user[password]',	with: 'password'
     click_button 'ログイン'
-    visit user_path(@user)
+    visit user_path(@user2)
   end
 
   it 'ユーザー名が表示されていること' do
-    expect(page).to have_content 'user'
+    expect(page).to have_content 'userSecond'
   end
 
   it 'プロフィールが表示されていること' do
@@ -37,9 +41,8 @@ RSpec.describe "Users#show", type: :system do
   end
 
   it 'はフォローしているユーザーの投稿にフォロー解除ボタンがつくこと' do
-    second_user = User.create(name: 'second_user', password: 'password')
-    @user.follows.create(follow_user_id: second_user)
-    visit user_path(@user)
+    @user.follows.create(follow_user_id: @user2.id)
+    visit user_path(@user2)
     expect(page).to have_content 'フォロー解除'
   end
 end

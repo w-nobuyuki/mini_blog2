@@ -6,7 +6,7 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
     @second_user = User.create(name: 'second', password: 'password')
     @first_user.tweets.create(body: 'tweet1', created_at: '2020/04/26 20:39')
     @first_user.tweets.create(body: 'tweet2', created_at: '2020/09/26 1:39')
-    @second_user.tweets.create(body: 'tweet3', created_at: '2020/11/26 12:39')
+    @tweet3 = @second_user.tweets.create(body: 'tweet3', created_at: '2020/11/26 12:39')
     visit new_user_session_path
     fill_in 'user[name]',	with: 'first'
     fill_in 'user[password]',	with: 'password'
@@ -66,5 +66,73 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
   it 'はユーザー名のリンクからそのユーザーのページに飛べること' do
     click_link 'second'
     expect(current_path).to eq user_path(@second_user)
+  end
+
+  it 'はいいねをするといいねボタンの背景色が青色に変わること' do
+    within first('.card') do
+      click_link 'いいね！', href: like_tweet_path(@tweet3)
+      expect(page).to have_css('a.btn.btn-primary.btn-sm')
+    end
+  end
+
+  it 'はいいねを解除するといいねボタンの背景色が透明に変わること' do
+    within first('.card') do
+      click_link 'いいね！', href: like_tweet_path(@tweet3)
+      click_link 'いいね！', href: unlike_tweet_path(@tweet3)
+      expect(page).to have_css('a.btn.btn-outline-primary.btn-sm')
+    end
+  end
+
+  it 'はいいねが0件の状態でいいねボタンを押すといいねの件数が1件で表示されること' do
+    within first('.card') do
+      click_link 'いいね！', href: like_tweet_path(@tweet3)
+      expect(page).to have_link '1 いいね', href: tweet_path(@tweet3)
+    end
+  end
+
+  it 'はいいねが1件の状態でいいねボタンを押すといいねの件数が2件で表示されること' do
+    @tweet3.likes.create(user_id: @second_user.id)
+    visit root_path
+    within first('.card') do
+      click_link 'いいね！', href: like_tweet_path(@tweet3)
+      expect(page).to have_link '2 いいね', href: tweet_path(@tweet3)
+    end
+  end
+
+  it 'はいいねの件数が0件になるといいねの件数表示がなくなること' do
+    within first('.card') do
+      click_link 'いいね！', href: like_tweet_path(@tweet3)
+      expect(page).to have_link '1 いいね', href: tweet_path(@tweet3)
+      click_link 'いいね！', href: unlike_tweet_path(@tweet3)
+      expect(page).to_not have_link '1 いいね', href: tweet_path(@tweet3)
+    end
+  end
+
+  it 'はいいねの件数をクリックするといいねをしたユーザーの一覧が表示されること' do
+    @tweet3.likes.create(user_id: @second_user.id)
+    click_link 'いいね！', href: like_tweet_path(@tweet3)
+    click_link '2 いいね', href: tweet_path(@tweet3)
+    within('.modal') do
+      expect(page).to have_link 'first', href: user_path(@first_user)
+      expect(page).to have_link 'second', href: user_path(@second_user)
+    end
+  end
+
+  it 'はいいねをしたユーザーの一覧からユーザーのページへ飛べること' do
+    click_link 'いいね！', href: like_tweet_path(@tweet3)
+    click_link '1 いいね', href: tweet_path(@tweet3)
+    within('.modal') do
+      click_link 'first', href: user_path(@first_user)
+    end
+    expect(current_path).to eq user_path(@first_user)
+  end
+
+  it 'はいいねをしたユーザーの一覧は閉じるボタンで閉じること' do
+    click_link 'いいね！', href: like_tweet_path(@tweet3)
+    click_link '1 いいね', href: tweet_path(@tweet3)
+    within('.modal') do
+      click_button '閉じる'
+    end
+    expect(page).to_not have_content 'いいね！をしたユーザー'
   end
 end
