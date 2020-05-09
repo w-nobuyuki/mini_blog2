@@ -1,1 +1,2 @@
-$("#tweet-<%= @tweet.id %>-like").html("<%= escape_javascript(render partial: 'like_button', locals: {tweet: @tweet}) %>");
+$(".tweet-<%= @tweet.id %>-like").html("<%= escape_javascript(render partial: 'like_button', locals: {tweet: @tweet}) %>");
+$(".tweet-<%= @tweet.id %>-likes-count").html("<%= escape_javascript(render partial: 'likes_count', locals: {tweet: @tweet}) %>");

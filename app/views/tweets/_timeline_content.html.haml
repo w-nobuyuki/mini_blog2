@@ -1,5 +1,5 @@
 - tweets.each do |tweet|
-  .card.mb-3{id: "tweet-#{tweet.id}-card"}
+  .card.mb-3
     .card-body
       %h5.card-title
         .row
@@ -13,8 +13,8 @@
           = tweet.created_at.strftime('%Y/%m/%d %H:%M')
     .card-footer.border-second.bg-transparent
       .row
-        .col
-      %hr/
+        .col{class: "tweet-#{tweet.id}-likes-count"}
+          = render partial: 'likes_count', locals: { tweet: tweet }
       .row
-        .col{id: "tweet-#{tweet.id}-like"}
+        .col{class: "tweet-#{tweet.id}-like"}
           = render partial: 'like_button', locals: { tweet: tweet }

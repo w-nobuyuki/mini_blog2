@@ -1,0 +1,12 @@
+.modal#like-users-modal{tabindex: '-1', role: 'dialog'}
+  .modal-dialog.modal-dialog-centered{role: 'document'}
+    .modal-content
+      .modal-header
+        %h5.modal-title いいね！をしたユーザー
+      .modal-body.p-0
+        %ul.list-group.list-group-flush
+          - tweet.like_users.each do |user|
+            %li.list-group-item
+              = link_to user.name, user, onclick: "$('.modal').modal('hide');"
+      .modal-footer
+        %button.btn.btn-secondary{type: 'button', data: {dismiss: 'modal'}} 閉じる

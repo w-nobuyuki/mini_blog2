@@ -1,0 +1,2 @@
+$("#like-users-modal").replaceWith("<%= escape_javascript(render partial: 'like_users_modal', locals: {tweet: @tweet}) %>");
+$("#like-users-modal").modal('show');

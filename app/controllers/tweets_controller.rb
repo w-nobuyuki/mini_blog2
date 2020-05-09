@@ -1,11 +1,13 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_tweet, only: %i[like unlike]
+  before_action :set_tweet, only: %i[show like unlike]
 
   def index
-    @tweets = Tweet.all.order(created_at: 'DESC').includes(:user)
-    @follow_users_tweets = current_user.follow_users_tweets.order(created_at: 'DESC').includes(:user)
+    @tweets = Tweet.all.order(created_at: 'DESC').includes(:user, :likes)
+    @follow_users_tweets = current_user.follow_users_tweets.order(created_at: 'DESC').includes(:user, :likes)
   end
+
+  def show; end
 
   def new
     @tweet = current_user.tweets.build

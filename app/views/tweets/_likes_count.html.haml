@@ -1,0 +1,7 @@
+- likes_count = tweet.likes.pluck(:id).size
+- unless likes_count.zero?
+  = link_to tweet_path(tweet), remote: true do
+    %i.far.fa-thumbs-up
+    = likes_count
+    いいね！
+  %hr/
