@@ -1,0 +1,4 @@
+$("#comments").modal('hide');
+$("#comments").replaceWith("<%= escape_javascript(render partial: 'index', locals: {comments: @comments, comment: @comment}) %>");
+$("#comments").modal('show');
+$("#comments").scrollTop($("form").offset().top);

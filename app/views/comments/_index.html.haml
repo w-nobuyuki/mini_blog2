@@ -1,0 +1,28 @@
+.modal#comments{tabindex: '-1', role: 'dialog'}
+  .modal-dialog.modal-dialog-centered{role: 'document'}
+    .modal-content
+      .modal-header
+        %h5.modal-title コメント
+      .modal-body.p-0
+        %ul.list-group.list-group-flush
+          - comments.each do |comment|
+            %li.list-group-item
+              %h5
+                .row
+                  .col-auto.mr-auto= link_to comment.user.name, comment.user, onclick: "$('.modal').modal('hide');"
+                  .col-auto
+                    - if comment.user == current_user
+                      = link_to '削除', tweet_comment_path(comment.tweet, comment), method: :delete, class: 'btn btn-sm btn-outline-danger', data: { confirm: '削除してもいいですか？' }
+              %p= raw h(comment.body).gsub(/\R/, '<br>')
+              %p
+                %small.text-muted
+                  = comment.created_at.strftime('%Y/%m/%d %H:%M')
+          %li.list-group-item
+            = simple_form_for comment, url: tweet_comments_path(comment.tweet), wrapper: :inline_form, remote: true do |f|
+              .form-row
+                .col-10
+                  = f.input :body, placeholder: 'コメントを送る'
+                .col-auto
+                  = f.button :submit, '送信', class: 'btn-outline-primary'
+      .modal-footer
+        %button.btn.btn-secondary{type: 'button', data: {dismiss: 'modal'}} 閉じる

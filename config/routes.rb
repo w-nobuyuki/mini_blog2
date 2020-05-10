@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       post :like
       delete :unlike
     end
+    resources :comments, only: %i[index create destroy]
   end
+
   resources :users, only: :show do
     member do
       post :follow

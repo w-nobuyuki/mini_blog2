@@ -16,5 +16,9 @@
         .col{class: "tweet-#{tweet.id}-likes-count"}
           = render partial: 'likes_count', locals: { tweet: tweet }
       .row
-        .col{class: "tweet-#{tweet.id}-like"}
-          = render partial: 'like_button', locals: { tweet: tweet }
+        .col.d-flex.justify-content-start
+          %div.mr-2{class: "tweet-#{tweet.id}-like"}
+            = render partial: 'like_button', locals: { tweet: tweet }
+          = link_to tweet_comments_path(tweet), class: 'btn btn-outline-primary btn-sm', remote: true do
+            %i.far.fa-comment
+            コメント

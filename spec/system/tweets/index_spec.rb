@@ -135,4 +135,16 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
     end
     expect(page).to_not have_content 'いいね！をしたユーザー'
   end
+
+  it 'は各投稿にコメントの送信画面へのリンクが存在すること' do
+    tweets = all('.card').map { |tweet| tweet.find_link('コメント').text }
+    expect(tweets).to eq %w[コメント コメント コメント]
+  end
+
+  it 'はコメントボタンを押すとコメント送信画面（モーダル）が開くこと' do
+    within first('.card') do
+      click_link 'コメント', href: tweet_comments_path(@tweet3)
+    end
+    expect(page).to have_css '#comments.modal.show'
+  end
 end
