@@ -25,12 +25,4 @@ class User < ApplicationRecord
   def like_tweet?(tweet_id)
     likes.pluck(:tweet_id).include?(tweet_id)
   end
-
-  def email_required?
-    false
-  end
-
-  def will_save_change_to_email?
-    false
-  end
 end
