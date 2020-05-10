@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
   def create
     @comment = @tweet.comments.build(comment_params)
     if @comment.save
+      CommentMailer.new_comment(@comment).deliver
       redirect_to root_url, notice: 'コメントを送りました。'
     else
       render :index
