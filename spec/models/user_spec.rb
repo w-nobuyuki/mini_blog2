@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it 'はユーザー名、パスワードがあれば有効であること' do
-    user = User.new(name: 'testuser', password: 'password')
+    user = User.new(name: 'testuser', email: 'testuser@test.co.jp', password: 'password')
     expect(user).to be_valid
   end
 
@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
   end
 
   it 'は重複したユーザー名なら無効であること' do
-    User.create(name: 'testuser', password: 'password')
+    User.create(name: 'testuser', email: 'testuser@test.co.jp', password: 'password')
     user = User.new(name: 'testuser')
     user.valid?
     expect(user.errors[:name]).to include('はすでに存在します')
@@ -55,9 +55,9 @@ RSpec.describe User, type: :model do
   end
 
   it 'は対象のユーザーをフォローしているかどうかの真偽値を返すこと' do
-    user1 = User.create(name: 'one', password: 'password')
-    user2 = User.create(name: 'two', password: 'password')
-    user3 = User.create(name: 'three', password: 'password')
+    user1 = User.create(name: 'one', email: 'one@test.co.jp', password: 'password')
+    user2 = User.create(name: 'two', email: 'two@test.co.jp', password: 'password')
+    user3 = User.create(name: 'three', email: 'three@test.co.jp', password: 'password')
     user1.follows.create(follow_user_id: user2.id)
     expect(user1.following?(user2)).to eq true
     expect(user1.following?(user3)).to eq false

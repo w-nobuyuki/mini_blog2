@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Tweets#index', type: :system, js: true do
   before do
-    @first_user = User.create(name: 'first', password: 'password')
-    @second_user = User.create(name: 'second', password: 'password')
+    @first_user = User.create(name: 'first', email: 'first@test.co.jp', password: 'password')
+    @second_user = User.create(name: 'second', email: 'second@test.co.jp', password: 'password')
     @first_user.tweets.create(body: 'tweet1', created_at: '2020/04/26 20:39')
     @first_user.tweets.create(body: 'tweet2', created_at: '2020/09/26 1:39')
     @tweet3 = @second_user.tweets.create(body: 'tweet3', created_at: '2020/11/26 12:39')

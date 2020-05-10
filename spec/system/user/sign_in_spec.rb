@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'User#sign_in', type: :system do
   before do
-    User.create(name: 'user', password: 'password')
+    User.create(name: 'user', email: 'user@test.co.jp', password: 'password')
     visit new_user_session_path
   end
 

@@ -5,8 +5,9 @@ RSpec.describe 'User#sign_up', type: :system do
     visit new_user_registration_path
   end
 
-  it 'はユーザー名、パスワード、パスワード確認を入力してSign upをクリックするとアカウント登録できること' do
+  it 'はユーザー名、メールアドレス、パスワード、パスワード確認を入力してSign upをクリックするとアカウント登録できること' do
     fill_in 'user[name]', with: 'user'
+    fill_in 'user[email]', with: 'user@test.co.jp'
     fill_in 'user[password]', with: 'password'
     fill_in 'user[password_confirmation]', with: 'password'
     click_button '登録する'
@@ -21,7 +22,7 @@ RSpec.describe 'User#sign_up', type: :system do
   end
 
   it 'はユーザー名が既に存在するとアカウント登録できないこと' do
-    User.create(name: 'user', password: 'password')
+    User.create(name: 'user', email: 'user@test.co.jp', password: 'password')
     fill_in 'user[name]', with: 'user'
     fill_in 'user[password]', with: 'password'
     fill_in 'user[password_confirmation]', with: 'password'
@@ -30,7 +31,7 @@ RSpec.describe 'User#sign_up', type: :system do
   end
 
   it 'はユーザー名にアルファベット以外が入力されているとアカウント登録できないこと' do
-    User.create(name: 'user', password: 'password')
+    User.create(name: 'user', email: 'user@test.co.jp', password: 'password')
     ['あ', '1', '@', 'a a'].each do |value|
       fill_in 'user[name]', with: value
       fill_in 'user[password]', with: 'password'
@@ -50,6 +51,7 @@ RSpec.describe 'User#sign_up', type: :system do
 
   it 'はユーザー名が20文字だとアカウント登録できること' do
     fill_in 'user[name]', with: Faker::Lorem.characters(number: 20, min_alpha: 20)
+    fill_in 'user[email]', with: 'user@test.co.jp'
     fill_in 'user[password]', with: 'password'
     fill_in 'user[password_confirmation]', with: 'password'
     click_button '登録する'

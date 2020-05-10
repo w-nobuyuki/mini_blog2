@@ -4,10 +4,12 @@ RSpec.describe "Users#show", type: :system do
   before do
     @user = User.create(
       name: 'user',
+      email: 'user@test.co.jp',
       password: 'password'
     )
     @user2 = User.create(
       name: 'userSecond',
+      email: 'user2@test.co.jp',
       password: 'password',
       profile: 'プロフィール\nこれはプロフィールです。',
       blog_url: 'https://google.co.jp'

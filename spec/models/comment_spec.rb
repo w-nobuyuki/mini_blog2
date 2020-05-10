@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   before do
-    @user = User.create(name: 'testuser', password: 'password')
+    @user = User.create(name: 'testuser', email: 'testuser@test.co.jp', password: 'password')
     @tweet = @user.tweets.build(body: 'tweet')
   end
 

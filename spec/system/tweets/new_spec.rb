@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Tweets#new', type: :system do
   before do
-    User.create(name: 'user', password: 'password')
+    User.create(name: 'user', email: 'user@test.co.jp', password: 'password')
     visit new_user_session_path
     fill_in 'user[name]',	with: 'user'
     fill_in 'user[password]',	with: 'password'

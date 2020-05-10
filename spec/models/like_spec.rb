@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Like, type: :model do
   before do
-    @user1 = User.create(name: 'FirstUser', password: 'password')
-    user2 = User.create(name: 'SecondUser', password: 'password')
+    @user1 = User.create(name: 'FirstUser', email: 'firstuser@test.co.jp', password: 'password')
+    user2 = User.create(name: 'SecondUser', email: 'seconduser@test.co.jp', password: 'password')
     @tweet = user2.tweets.create(body: '本文')
   end
 

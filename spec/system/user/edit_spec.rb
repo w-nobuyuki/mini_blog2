@@ -4,6 +4,7 @@ RSpec.describe 'User#edit', type: :system do
   before do
     User.create(
       name: 'user',
+      email: 'user@test.co.jp',
       password: 'password',
       profile: 'プロフィール\nこれはプロフィールです。',
       blog_url: 'https://google.co.jp'

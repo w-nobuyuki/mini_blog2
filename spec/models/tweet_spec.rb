@@ -8,7 +8,7 @@ RSpec.describe Tweet, type: :model do
   end
 
   it 'は本文の文字数が140字であれば有効であること' do
-    user = User.create(name: 'testuser', password: 'password')
+    user = User.create(name: 'testuser', email: 'testuser@test.co.jp', password: 'password')
     tweet = user.tweets.build(body: Faker::Lorem.characters(number: 140))
     expect(tweet).to be_valid
   end
