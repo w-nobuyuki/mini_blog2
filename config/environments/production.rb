@@ -115,7 +115,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: Rails.application.credentials.sendgrid[:username],
     password: Rails.application.credentials.sendgrid[:password],
-    domain: 'salty-everglades-35672.herokuapp.com',
+    domain: 'herokuapp.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
