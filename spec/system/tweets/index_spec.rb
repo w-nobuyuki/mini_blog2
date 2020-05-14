@@ -6,7 +6,11 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
     @second_user = User.create(name: 'second', email: 'second@test.co.jp', password: 'password')
     @first_user.tweets.create(body: 'tweet1', created_at: '2020/04/26 20:39')
     @first_user.tweets.create(body: 'tweet2', created_at: '2020/09/26 1:39')
-    @tweet3 = @second_user.tweets.create(body: 'tweet3', created_at: '2020/11/26 12:39')
+    @tweet3 = @second_user.tweets.create(
+      body: 'tweet3',
+      created_at: '2020/11/26 12:39',
+      images: [Rack::Test::UploadedFile.new(File.join(Rails.root, '/spec/system/rspec.jpg'))]
+    )
     visit new_user_session_path
     fill_in 'user[name]',	with: 'first'
     fill_in 'user[password]',	with: 'password'
@@ -146,5 +150,18 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
       click_link 'コメント', href: tweet_comments_path(@tweet3)
     end
     expect(page).to have_css '#comments.modal.show'
+  end
+
+  it 'は画像のサムネイルが表示されていること' do
+    within first('.card') do
+      expect(find('img.img-thumbnail')['src']).to include @tweet3.images[0].thumb.url
+    end
+  end
+
+  it 'は画像のサムネイルをクリックするとオリジナルの画像が表示されること' do
+    within first('.card') do
+      click_link '', href: @tweet3.images[0].url
+      expect(current_path).to eq @tweet3.images[0].url
+    end
   end
 end

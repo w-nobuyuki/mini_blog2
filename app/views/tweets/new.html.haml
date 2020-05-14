@@ -2,5 +2,6 @@
 = simple_form_for @tweet do |form|
   = form.error_notification
   = form.input :body, as: :text, label: false
+  = form.input :images, as: :file, label: false, input_html: { accept: ".jpg, .jpeg, .png, .gif", multiple: true }
   = form.button :submit, '投稿する', class: 'btn-outline-primary'
   = link_to '戻る', root_path, class: 'btn btn-outline-secondary'

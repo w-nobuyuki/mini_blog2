@@ -1,0 +1,4 @@
+ja:
+  errors:
+    messages:
+      extension_whitelist_error: "は %{allowed_types} のみアップロードできます。"
