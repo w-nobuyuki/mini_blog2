@@ -9,7 +9,7 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
     @tweet3 = @second_user.tweets.create(
       body: 'tweet3',
       created_at: '2020/11/26 12:39',
-      images: [Rack::Test::UploadedFile.new(File.join(Rails.root, '/spec/system/rspec.jpg'))]
+      image: Rack::Test::UploadedFile.new(File.join(Rails.root, '/spec/system/rspec.jpg'))
     )
     visit new_user_session_path
     fill_in 'user[name]',	with: 'first'
@@ -154,14 +154,14 @@ RSpec.describe 'Tweets#index', type: :system, js: true do
 
   it 'は画像のサムネイルが表示されていること' do
     within first('.card') do
-      expect(find('img.img-thumbnail')['src']).to include @tweet3.images[0].thumb.url
+      expect(find('img.img-thumbnail')['src']).to include @tweet3.image.thumb.url
     end
   end
 
   it 'は画像のサムネイルをクリックするとオリジナルの画像が表示されること' do
     within first('.card') do
-      click_link '', href: @tweet3.images[0].url
-      expect(current_path).to eq @tweet3.images[0].url
+      click_link '', href: @tweet3.image.url
+      expect(current_path).to eq @tweet3.image.url
     end
   end
 end

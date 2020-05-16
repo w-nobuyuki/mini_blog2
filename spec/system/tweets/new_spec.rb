@@ -34,13 +34,12 @@ RSpec.describe 'Tweets#new', type: :system do
     expect(current_path).to eq(root_path)
   end
 
-  it 'は複数の画像の投稿ができること' do
+  it 'は画像の投稿ができること' do
     rails_png = File.join(Rails.root, '/spec/system/rails.png')
-    rspec_png = File.join(Rails.root, '/spec/system/rspec.jpg')
     fill_in 'tweet[body]',	with: 'つぶやき'
-    attach_file 'tweet[images][]', [rails_png, rspec_png], multiple: true
+    attach_file 'tweet[image]', rails_png
     click_button '投稿する'
     expect(page).to have_content 'つぶやきを投稿しました。'
-    expect(all('.img-thumbnail').count).to eq 2
+    expect(all('.img-thumbnail').count).to eq 1
   end
 end

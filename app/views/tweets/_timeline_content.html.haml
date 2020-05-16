@@ -9,10 +9,10 @@
               = link_to '削除', tweet, method: :delete, class: 'btn btn-sm btn-outline-danger', data: { confirm: '削除してもいいですか？' }
       %p.card-text
         = raw h(tweet.body).gsub(/\R/, '<br>')
-        - tweet.images.each do |image|
+        - if tweet.image.present?
           %div
-            = link_to image.url do
-              = image_tag image.thumb.url, class: "img-thumbnail"
+            = link_to tweet.image.url do
+              = image_tag tweet.image.thumb.url, class: "img-thumbnail"
       %p.card-text
         %small.text-muted
           = tweet.created_at.strftime('%Y/%m/%d %H:%M')

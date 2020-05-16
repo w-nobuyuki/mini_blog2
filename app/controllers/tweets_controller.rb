@@ -14,7 +14,6 @@ class TweetsController < ApplicationController
   end
 
   def create
-    p tweet_params
     @tweet = current_user.tweets.build(tweet_params)
 
     if @tweet.save
@@ -45,6 +44,6 @@ class TweetsController < ApplicationController
     end
 
     def tweet_params
-      params.require(:tweet).permit(:body, { images: [] })
+      params.require(:tweet).permit(:body, :image)
     end
 end
