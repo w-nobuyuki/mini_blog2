@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+%html(lang="en")
+  %head
+    %meta(charset="UTF-8")/
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0")/
+    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body.mt-5
+    .container
+      .row
+        .col
+          %h2= "#{Date.yesterday} いいね数ランキング"
+          - @ranking.each do |content|
+            .card.mb-3
+              .card-header
+                = "#{content[:rank]} 位（#{content[:count]} いいね）"
+              .card-body
+                %h5.card-title
+                  .row
+                    .col-auto.mr-auto= link_to content[:tweet].user.name, content[:tweet].user
+                %p.card-text
+                  = raw h(content[:tweet].body).gsub(/\R/, '<br>')
+                  - if content[:tweet].image.present?
+                    %div
+                      = link_to content[:tweet].image.url do
+                        = image_tag content[:tweet].image.thumb.url, class: "img-thumbnail"
+                %p.card-text
+                  %small.text-muted
+                    = content[:tweet].created_at.strftime('%Y/%m/%d %H:%M')
+      = link_to 'ミニブログへ', root_url
