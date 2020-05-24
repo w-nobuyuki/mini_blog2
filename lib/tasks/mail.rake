@@ -1,6 +1,6 @@
 namespace :mail do
 
-  task :likes_ranking do
-    TweetMailer.ranking
+  task likes_ranking: :environment do
+    TweetMailer.ranking.deliver
   end
 end
