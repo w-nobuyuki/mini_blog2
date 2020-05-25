@@ -15,8 +15,8 @@ class Tweet < ApplicationRecord
                       .count
     rank = 1
     result = []
-    likes_count.each do |tweet_id, count|
-      rank += 1 if result.present? && result.last[:count] > count
+    likes_count.each.with_index(1) do |(tweet_id, count), index|
+      rank = index if result.present? && result.last[:count] > count
       break if rank > limit
 
       result.push({ tweet: Tweet.find(tweet_id), rank: rank, count: count })
