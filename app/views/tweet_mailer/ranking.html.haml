@@ -1,23 +1,27 @@
 %h2= "#{Date.yesterday} いいね数ランキング"
 
-%table{border: 1}
-  %thead
-    %tr
-      %th 順位
-      %th いいね数
-      %th 投稿者
-      %th 内容
-      %th 投稿時間
-  %tbody
-    - @ranking.each do |content|
+- if @ranking.blank?
+  %p 昨日はいいねがついた投稿がありませんでした！
+  %p 皆さんの面白い投稿をお待ちしてます！
+- else
+  %table{border: 1}
+    %thead
       %tr
-        %td= content[:rank]
-        %td= content[:count]
-        %td= content[:tweet].user.name
-        %td
-          = raw h(content[:tweet].body).gsub(/\R/, '<br>')
-          - if content[:tweet].image.present?
-            %div
-              = link_to content[:tweet].image.url do
-                = image_tag content[:tweet].image.thumb.url, class: "img-thumbnail"
-        %td= content[:tweet].created_at.strftime('%Y/%m/%d %H:%M')
+        %th 順位
+        %th いいね数
+        %th 投稿者
+        %th 内容
+        %th 投稿時間
+    %tbody
+      - @ranking.each do |content|
+        %tr
+          %td= content[:rank]
+          %td= content[:count]
+          %td= content[:tweet].user.name
+          %td
+            = raw h(content[:tweet].body).gsub(/\R/, '<br>')
+            - if content[:tweet].image.present?
+              %div
+                = link_to content[:tweet].image.url do
+                  = image_tag content[:tweet].image.thumb.url, class: "img-thumbnail"
+          %td= content[:tweet].created_at.strftime('%Y/%m/%d %H:%M')
