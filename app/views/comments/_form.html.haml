@@ -1,0 +1,6 @@
+= simple_form_for comment, url: tweet_comments_path(comment.tweet), wrapper: :inline_form, remote: true, id: 'hgoehoge' do |f|
+  .form-row
+    .col-10
+      = f.input :body, placeholder: 'コメントを送る'
+    .col-auto
+      = f.button :submit, '送信', class: 'btn-outline-primary'

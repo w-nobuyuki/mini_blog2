@@ -8,6 +8,9 @@ class Tweet < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: 140 }
 
+  # 違うクラスを作る
+  # SQL の Window 関数を使うとランクの番号振りが楽できそう
+  # モデルに書いてあるのは good
   def self.yesterday_likes_ranking_top(limit)
     likes_count = Like.where(created_at: Date.yesterday...Date.today)
                       .group(:tweet_id)
