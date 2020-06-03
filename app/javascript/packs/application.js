@@ -20,3 +20,5 @@ window.$ = jquery
 import 'bootstrap'
 import '@fortawesome/fontawesome-free/js/all'
 import '../stylesheets/application.scss'
+
+/* $.ajax(...).then(res => $('hoge').html(res.contentText)) */

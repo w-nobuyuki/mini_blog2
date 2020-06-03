@@ -1,6 +1,8 @@
+-# includes(:likes) が効いてない
+-# likes_count = tweet.likes.count # SELECT COUNT(*) FROM likes WHERE tweet_id = :id
 - likes_count = tweet.likes.pluck(:id).size
 - unless likes_count.zero?
-  = link_to tweet_path(tweet), remote: true do
+  = link_to tweet_likes_path(tweet), remote: true do
     %i.far.fa-thumbs-up
     = likes_count
     いいね！

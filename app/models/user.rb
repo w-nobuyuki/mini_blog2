@@ -19,10 +19,12 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 200 }
 
   def following?(user)
+    # follow_users.exists?(follow_user: user)
     follow_users.pluck(:follow_user_id).include?(user.id)
   end
 
   def like_tweet?(tweet_id)
+    # likes.exists?(tweet_id: tweet_id)
     likes.pluck(:tweet_id).include?(tweet_id)
   end
 end
